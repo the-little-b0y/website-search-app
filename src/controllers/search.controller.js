@@ -1,5 +1,5 @@
 const { googleSearch } = require("../services/googleSearch.service");
-const extractEmails = require("../utils/emailExtractor");
+const extractContacts = require("../utils/contactExtractor");
 
 const WORD_WEIGHTS = {
     dental: 0.5,
@@ -81,11 +81,12 @@ async function processKeyword(keyword) {
         };
     }
 
-    const emails = await extractEmails(bestResult.url);
+    const contacts = await extractContacts(bestResult.url);
 
     return {
         website: bestResult,
-        emails
+        emails: contacts.emails,
+        socials: contacts.socials
     };
 }
 
@@ -123,7 +124,8 @@ exports.searchWebsite = async (req, res) => {
                 ID: item.ID ?? null,
                 Name: item.Name,
                 result: processed.website,
-                emails: processed.emails
+                emails: processed.emails,
+                socials: processed.socials
             });
         }
 

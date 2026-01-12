@@ -1,9 +1,9 @@
 const express = require("express");
-const { searchWebsite } = require("../controllers/search.controller");
+const { emailSocialExtractor } = require("../controllers/emailSocial.controller");
 const apiKeyAuth = require("../middlewares/apiKeyAuth");
 
 const router = express.Router();
 
-router.post("/", apiKeyAuth, searchWebsite);
+router.post("/", apiKeyAuth, emailSocialExtractor);
 
 module.exports = router;
